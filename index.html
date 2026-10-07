@@ -1,90 +1,24 @@
 <!doctype html>
-<html lang="it">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VCE Xmas Quest UX v0.1</title>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VCE Xmas Quest UX v0.3</title>
 <style>
-:root{--yellow:#ffcc00;--ink:#17212b;--muted:#667085;--bg:#f4f6f8;--card:#fff;--green:#14804a;--red:#c62828;--line:#e5e7eb}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
-.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg)}
-header{background:var(--ink);color:#fff;padding:18px 20px;display:flex;align-items:center;gap:12px}
-.logo{width:40px;height:40px;background:var(--yellow);border-radius:10px;display:grid;place-items:center;font-size:22px}
-header h1{font-size:18px;margin:0}header p{font-size:12px;margin:3px 0 0;color:#d0d5dd}
-main{padding:18px}.card{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 3px 14px rgba(16,24,40,.08);margin-bottom:14px}
-.team{text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-size:12px;font-weight:700}.hero{font-size:28px;font-weight:800;margin:8px 0}.new{display:inline-block;background:#eef4ff;color:#175cd3;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.stat{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px}.stat b{display:block;font-size:22px}.stat span{font-size:12px;color:var(--muted)}
-button{border:0;border-radius:12px;padding:14px 16px;font-size:15px;font-weight:800;cursor:pointer;width:100%}.primary{background:var(--yellow);color:#111827}.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
-.hidden{display:none}.back{width:auto;background:transparent;padding:4px 0;color:#344054;margin-bottom:12px}.mission-title{font-size:22px;margin:8px 0}.question{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}.question h3{font-size:16px;margin:0 0 8px}.hint{font-size:13px;color:var(--muted);margin:6px 0 12px}.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin:10px 0}
-input{width:100%;padding:13px;border:1px solid #cfd4dc;border-radius:10px;font-size:16px;margin:8px 0 10px}.status{padding:10px 12px;border-radius:10px;margin-top:10px;font-weight:700;font-size:14px}.ok{background:#ecfdf3;color:var(--green)}.err{background:#fef3f2;color:var(--red)}.locked{opacity:.58}.complete{border:2px solid #6ce9a6}.footer-note{text-align:center;color:var(--muted);font-size:12px;padding:6px 0 20px}
-.progress{height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin:10px 0 4px}.bar{height:100%;background:var(--yellow);width:0;transition:.25s}
-</style>
-</head>
-<body><div class="app">
-<header><div class="logo">🏆</div><div><h1>VCE XMAS QUEST</h1><p>Prototipo UX v0.1</p></div></header>
-<main>
-<section id="home">
-  <div class="card">
-    <div class="team">Team Alpha</div>
-    <div class="hero" id="homeHeadline">1 nuova missione</div>
-    <span class="new" id="newBadge">NEW</span>
-    <div class="stats">
-      <div class="stat"><b id="availableCount">1</b><span>Missioni disponibili</span></div>
-      <div class="stat"><b id="completedCount">0</b><span>Missioni completate</span></div>
-    </div>
-    <button class="primary" onclick="showMission()">VISUALIZZA MISSIONE</button>
-  </div>
-  <div class="card"><div class="team">Punteggio</div><div class="hero"><span id="score">0</span> punti</div><button class="secondary" onclick="alert('Classifica test: 1° Team Alpha')">CLASSIFICA</button></div>
-</section>
-
-<section id="mission" class="hidden">
-  <button class="back" onclick="showHome()">← Home</button>
-  <div class="card">
-    <div class="team">Missione 1</div>
-    <h2 class="mission-title">Scopri persone e strumenti Volvo CE</h2>
-    <div class="progress"><div class="bar" id="progressBar"></div></div>
-    <div class="hint"><span id="progressText">0 di 2 domande completate</span></div>
-
-    <div class="question" id="q1box">
-      <h3>Domanda 1</h3>
-      <div>Trova una persona che ha lavorato in almeno 2 sedi Volvo CE.</div>
-      <div class="hint"><strong>Inserisci Nome e Cognome.</strong></div>
-      <div class="meta"><span>20 punti</span><span id="q1tries">3 tentativi</span></div>
-      <input id="q1" autocomplete="off" placeholder="Es. Mario Rossi">
-      <button class="primary" id="q1btn" onclick="submitQ(1)">INVIA RISPOSTA</button>
-      <div id="q1status"></div>
-    </div>
-
-    <div class="question" id="q2box">
-      <h3>Domanda 2</h3>
-      <div>Trova il nome dell'applicazione utilizzata per il monitoraggio remoto delle macchine Volvo CE.</div>
-      <div class="hint"><strong>Inserisci il nome dell'applicazione.</strong></div>
-      <div class="meta"><span>15 punti</span><span id="q2tries">3 tentativi</span></div>
-      <input id="q2" autocomplete="off" placeholder="Nome applicazione">
-      <button class="primary" id="q2btn" onclick="submitQ(2)">INVIA RISPOSTA</button>
-      <div id="q2status"></div>
-    </div>
-  </div>
-</section>
-
-<section id="done" class="hidden">
-  <div class="card complete">
-    <div class="team">Missione 1</div>
-    <div class="hero">✅ Completata</div>
-    <p>Hai completato entrambe le domande.</p>
-    <div class="stats"><div class="stat"><b id="finalScore">35</b><span>Punti totali</span></div><div class="stat"><b>2/2</b><span>Domande corrette</span></div></div>
-    <button class="primary" onclick="showHome()">TORNA ALLA HOME</button>
-  </div>
-</section>
-<div class="footer-note">Dati e risposte sono fittizi e servono solo per il test UX.</div>
-</main></div>
+:root{--yellow:#ffcc00;--ink:#17212b;--muted:#667085;--bg:#f4f6f8;--green:#14804a;--red:#c62828;--line:#e5e7eb;--blue:#175cd3;--warn:#b42318;--warnbg:#fff4ed}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}.app{max-width:480px;margin:auto;min-height:100vh}.hidden{display:none}header{background:var(--ink);color:#fff;padding:18px 20px;display:flex;gap:12px;align-items:center}.logo{width:40px;height:40px;background:var(--yellow);border-radius:10px;display:grid;place-items:center;font-size:22px}header h1{font-size:18px;margin:0}header p{font-size:12px;margin:3px 0 0;color:#d0d5dd}main{padding:18px}.card{background:#fff;border-radius:16px;padding:18px;box-shadow:0 3px 14px rgba(16,24,40,.08);margin-bottom:14px}.team{text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-size:12px;font-weight:700}.hero{font-size:28px;font-weight:800;margin:8px 0}.mission-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:9px 0}.mission-name{font-size:24px;font-weight:800}.new{background:#eef4ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.stat,.progress-stat{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px}.stat b{display:block;font-size:22px}.stat span{font-size:12px;color:var(--muted)}.progress-stat b{display:block;font-size:18px;margin-top:4px}button{width:100%;border:0;border-radius:12px;padding:14px 16px;font-size:15px;font-weight:800;cursor:pointer}.primary{background:var(--yellow);color:#111827}.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.back{width:auto;background:transparent;padding:4px 0;margin-bottom:12px}.mission-title{font-size:20px}.progress{height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:var(--yellow);transition:.25s}.progress-text,.input-hint{font-size:12px;color:var(--muted)}.progress-text{margin:7px 0 12px}.input-hint{margin:-3px 2px 11px}.question{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}.question h3{margin:0 0 8px}.meta{display:flex;gap:7px;margin:10px 0}.meta-chip{display:flex;align-items:center;gap:5px;background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:11px;color:var(--muted)}.meta-chip strong{font-size:13px;color:var(--ink)}.meta-chip.last{background:var(--warnbg);border-color:#fda29b;color:var(--warn);font-weight:800;animation:pulse 1.2s ease-in-out 2}.meta-chip.last strong{color:var(--warn);font-size:16px}@keyframes pulse{50%{transform:scale(1.04)}}input{width:100%;padding:13px;border:1px solid #cfd4dc;border-radius:10px;font-size:16px;margin:8px 0 7px}.status{padding:10px 12px;border-radius:10px;margin-top:10px;font-weight:700;font-size:14px}.ok{background:#ecfdf3;color:var(--green)}.err{background:#fef3f2;color:var(--red)}.complete{border:2px solid #6ce9a6}.closed{border:2px solid #fda29b;opacity:.9}.resolved-summary{display:none;margin-top:12px}.complete .answer-area,.closed .answer-area{display:none}.complete .resolved-summary,.closed .resolved-summary{display:block}.foot{text-align:center;color:var(--muted);font-size:12px;padding-bottom:18px}
+</style></head><body><div class="app"><header><div class="logo">🏆</div><div><h1>VCE XMAS QUEST</h1><p>Prototipo UX v0.3</p></div></header><main>
+<section id="home"><div class="card"><div class="team">Team Alpha</div><div class="mission-row"><span class="mission-name">Missione 1</span><span class="new" id="homeNew">NEW</span></div><div class="stats"><div class="stat"><b id="available">1</b><span>Missioni disponibili</span></div><div class="stat"><b id="completed">0</b><span>Missioni completate</span></div></div><div class="progress-stat"><span class="team">Progresso missione</span><b id="homeProgress">0 / 2 domande completate</b></div><br><button class="primary" onclick="showMission()">VISUALIZZA MISSIONE</button></div><div class="card"><div class="team">Punteggio</div><div class="hero"><span id="score">0</span> punti</div><button class="secondary" onclick="alert('Classifica test: 1° Team Alpha')">CLASSIFICA</button></div></section>
+<section id="mission" class="hidden"><button class="back" onclick="showHome()">← Home</button><div class="card"><div class="mission-row"><span class="mission-name">Missione 1</span><span class="new" id="missionNew">NEW</span></div><h2 class="mission-title">Scopri persone e strumenti Volvo CE</h2><div class="progress"><div class="bar" id="bar"></div></div><div class="progress-text" id="progressText">0 di 2 domande completate</div>
+<div class="question" id="q1box"><h3>Domanda 1</h3><div>Trova una persona che ha lavorato in almeno 2 sedi Volvo CE.</div><div class="meta"><div class="meta-chip">PUNTI <strong>20</strong></div><div class="meta-chip" id="q1triesChip">TENTATIVI <strong id="q1tries">3</strong></div></div><div class="answer-area"><input id="q1" autocomplete="off" placeholder="Risposta"><div class="input-hint"><strong>Inserisci Nome e Cognome.</strong></div><button class="primary" id="q1btn" onclick="submitQ(1)">INVIA RISPOSTA</button></div><div id="q1status"></div><div class="resolved-summary" id="q1summary"></div></div>
+<div class="question" id="q2box"><h3>Domanda 2</h3><div>Trova il nome dell'applicazione utilizzata per il monitoraggio remoto delle macchine Volvo CE.</div><div class="meta"><div class="meta-chip">PUNTI <strong>15</strong></div><div class="meta-chip" id="q2triesChip">TENTATIVI <strong id="q2tries">3</strong></div></div><div class="answer-area"><input id="q2" autocomplete="off" placeholder="Risposta"><div class="input-hint"><strong>Inserisci il nome dell'applicazione.</strong></div><button class="primary" id="q2btn" onclick="submitQ(2)">INVIA RISPOSTA</button></div><div id="q2status"></div><div class="resolved-summary" id="q2summary"></div></div>
+<div id="missionEnd" class="card hidden" style="box-shadow:none;background:#f8fafc;border:1px solid var(--line)"><div class="hero" style="font-size:22px">✅ Missione completata</div><p>Tutte le domande hanno ricevuto un esito definitivo.</p><div class="stats"><div class="stat"><b id="endScore">0</b><span>Punti totali</span></div><div class="stat"><b>2 / 2</b><span>Domande completate</span></div></div><button class="primary" onclick="showHome()">TORNA ALLA HOME</button></div>
+</div></section><div class="foot">Dati e risposte sono fittizi e servono solo per il test UX.</div></main></div>
 <script>
-let score=0, completed=0, tries={1:3,2:3}, passed={1:false,2:false}, seen=false;
+let score=0,tries={1:3,2:3},passed={1:false,2:false},closed={1:false,2:false},seen=false;
+const scoreEl=document.getElementById('score');
 function norm(s){return s.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ')}
-function showMission(){seen=true; document.getElementById('home').classList.add('hidden');document.getElementById('done').classList.add('hidden');document.getElementById('mission').classList.remove('hidden');document.getElementById('newBadge').classList.add('hidden');document.getElementById('homeHeadline').textContent='Missione disponibile'}
-function showHome(){document.getElementById('mission').classList.add('hidden');document.getElementById('done').classList.add('hidden');document.getElementById('home').classList.remove('hidden');document.getElementById('score').textContent=score;document.getElementById('completedCount').textContent=completed;document.getElementById('availableCount').textContent=completed?0:1;document.getElementById('homeHeadline').textContent=completed?'Missione completata':'Missione disponibile'}
-function submitQ(n){if(passed[n]||tries[n]<=0)return; const val=norm(document.getElementById('q'+n).value); const valid=n===1?['mario rossi','rossi mario'].includes(val):['caretrack','care track'].includes(val); const st=document.getElementById('q'+n+'status'); if(valid){passed[n]=true; score+=n===1?20:15; st.className='status ok';st.textContent='✅ Risposta corretta';document.getElementById('q'+n).disabled=true;document.getElementById('q'+n+'btn').disabled=true;document.getElementById('q'+n+'box').classList.add('complete'); if(n===1){document.getElementById('q2box').classList.remove('locked');document.getElementById('q2').disabled=false;document.getElementById('q2btn').disabled=false;} updateProgress();} else {tries[n]--; score-=5; st.className='status err';st.textContent='❌ Risposta errata. Penalità: -5 punti';document.getElementById('q'+n+'tries').textContent=tries[n]+' tentativi'; if(tries[n]===0){document.getElementById('q'+n).disabled=true;document.getElementById('q'+n+'btn').disabled=true;st.textContent='⛔ Domanda chiusa. Tentativi esauriti.'}}
-}
-function updateProgress(){const count=(passed[1]?1:0)+(passed[2]?1:0);document.getElementById('progressBar').style.width=(count*50)+'%';document.getElementById('progressText').textContent=count+' di 2 domande completate';if(count===2){completed=1;document.getElementById('finalScore').textContent=score;setTimeout(()=>{document.getElementById('mission').classList.add('hidden');document.getElementById('done').classList.remove('hidden')},350)}}
-</script>
-</body></html>
+function resolvedCount(){return (passed[1]||closed[1]?1:0)+(passed[2]||closed[2]?1:0)}
+function refresh(){const r=resolvedCount(),done=r===2;scoreEl.textContent=score;completed.textContent=done?1:0;available.textContent=done?0:1;homeProgress.textContent=r+' / 2 domande completate';bar.style.width=(r*50)+'%';progressText.textContent=r+' di 2 domande completate';if(seen)homeNew.classList.add('hidden');missionEnd.classList.toggle('hidden',!done);if(done)endScore.textContent=score}
+function showMission(){seen=true;home.classList.add('hidden');mission.classList.remove('hidden');homeNew.classList.add('hidden');missionNew.classList.add('hidden');refresh()}
+function showHome(){mission.classList.add('hidden');home.classList.remove('hidden');refresh()}
+function resolveUI(n,correct){const box=document.getElementById('q'+n+'box'),summary=document.getElementById('q'+n+'summary');box.classList.add(correct?'complete':'closed');summary.className='resolved-summary status '+(correct?'ok':'err');summary.textContent=correct?'✅ Risposta corretta':'⛔ Domanda chiusa. Tentativi esauriti. Penalità applicata: -5 punti.'}
+function submitQ(n){if(passed[n]||closed[n])return;const inp=document.getElementById('q'+n),v=norm(inp.value),valid=n===1?['mario rossi','rossi mario'].includes(v):['caretrack','care track'].includes(v),st=document.getElementById('q'+n+'status');if(valid){passed[n]=true;score+=n===1?20:15;st.textContent='';resolveUI(n,true);refresh();return}tries[n]--;inp.value='';inp.focus();document.getElementById('q'+n+'tries').textContent=tries[n];const chip=document.getElementById('q'+n+'triesChip');if(tries[n]===1)chip.classList.add('last');st.className='status err';if(tries[n]>0){st.textContent=tries[n]===1?'⚠️ Risposta errata. Ti resta un solo tentativo.':'❌ Risposta errata. Puoi riprovare.'}else{closed[n]=true;score-=5;st.textContent='';resolveUI(n,false)}refresh()}
+refresh();
+</script></body></html>
